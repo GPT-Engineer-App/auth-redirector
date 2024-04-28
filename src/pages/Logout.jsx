@@ -1,21 +1,16 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Text } from '@chakra-ui/react';
+import { removeToken } from '../utils/authService';
 
 const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      localStorage.removeItem('auth_token');
-      setTimeout(() => {
-        navigate('/');
-      }, 2000); // Redirect after 2 seconds
-    } else {
-      alert('No active session found.');
+    removeToken();
+    setTimeout(() => {
       navigate('/');
-    }
+    }, 2000); // Redirect after 2 seconds
   }, [navigate]);
 
   return (

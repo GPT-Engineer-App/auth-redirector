@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button, Input, Box, VStack, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { validateToken } from '../App.jsx';
+import { validateToken, storeToken, getToken } from '../utils/authService';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,13 +10,13 @@ const Login = () => {
   const toast = useToast();
 
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
+    const token = getToken();
     if (token) {
       validateToken(token).then(isValid => {
         if (isValid) {
           navigate('/');
         } else {
-          localStorage.removeItem('auth_token');
+          removeToken();
           navigate('/login');
         }
       }).catch(() => {
@@ -36,7 +36,7 @@ const Login = () => {
     });
     const data = await response.json();
     if (response.ok) {
-      localStorage.setItem('auth_token', data.access_token);
+      storeToken(data.access_token);
       navigate('/');
     } else {
       toast({

@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { validateToken, getToken } from './utils/authService';
 import Index from "./pages/Index.jsx";
 import Login from './pages/Login.jsx';
 import Logout from './pages/Logout.jsx';
@@ -19,13 +20,13 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
+    const token = getToken();
     if (!token) {
       navigate('/login');
     } else {
       validateToken(token).then(isValid => {
         if (!isValid) {
-          localStorage.removeItem('auth_token');
+          removeToken();
           navigate('/login');
         }
       }).catch(() => {
