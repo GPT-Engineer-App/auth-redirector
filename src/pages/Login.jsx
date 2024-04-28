@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button, Input, Box, VStack, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { validateToken, storeToken, getToken } from '../utils/authService';
+import { validateToken, storeToken, getToken, removeToken } from '../utils/authService';
 
 const Login = () => {
   const [email, setEmail] = useState('');
