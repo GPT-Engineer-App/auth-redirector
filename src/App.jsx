@@ -5,18 +5,18 @@ import Index from "./pages/Index.jsx";
 import Login from './pages/Login.jsx';
 import Logout from './pages/Logout.jsx';
 
+export const validateToken = async (token) => {
+  const response = await fetch('https://mnwefvnykbgyhbdzpleh.supabase.co/auth/v1/user', {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'apikey': process.env.REACT_APP_API_KEY // Simulated use of environment variable
+    }
+  });
+  return response.ok;
+};
+
 function App() {
   const navigate = useNavigate();
-
-  const validateToken = async (token) => {
-    const response = await fetch('https://mnwefvnykbgyhbdzpleh.supabase.co/auth/v1/user', {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'apikey': process.env.REACT_APP_API_KEY // Simulated use of environment variable
-      }
-    });
-    return response.ok;
-  };
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
