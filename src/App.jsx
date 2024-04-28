@@ -1,7 +1,20 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 import Index from "./pages/Index.jsx";
 import Login from './pages/Login.jsx';
 import Logout from './pages/Logout.jsx';
+
+const AuthenticatedApp = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
+  return <App />;
+};
 
 function App() {
   return (
@@ -15,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+export default AuthenticatedApp;
