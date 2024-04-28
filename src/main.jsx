@@ -15,24 +15,13 @@ const colors = {
 
 const theme = extendTheme({ colors });
 
-const AuthCheck = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem('auth_token');
-    if (!token) {
-      navigate('/login');
-    }
-  }, [navigate]);
 
-  return null;
-};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <AuthCheck />
       <App />
     </ChakraProvider>
   </React.StrictMode>
