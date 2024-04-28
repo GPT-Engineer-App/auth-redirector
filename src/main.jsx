@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const colors = {
@@ -14,20 +15,25 @@ const colors = {
 
 const theme = extendTheme({ colors });
 
+const AuthCheck = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
+  return null;
+};
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
+      <AuthCheck />
       <App />
     </ChakraProvider>
   </React.StrictMode>
 );
-
-useEffect(() => {
-  const navigate = useNavigate();
-  const token = localStorage.getItem('auth_token');
-  if (!token) {
-    navigate('/login');
-  }
-}, []);
