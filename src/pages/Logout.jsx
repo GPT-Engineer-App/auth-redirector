@@ -6,10 +6,16 @@ const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem('auth_token');
-    setTimeout(() => {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      localStorage.removeItem('auth_token');
+      setTimeout(() => {
+        navigate('/');
+      }, 2000); // Redirect after 2 seconds
+    } else {
+      alert('No active session found.');
       navigate('/');
-    }, 2000); // Redirect after 2 seconds
+    }
   }, [navigate]);
 
   return (

@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 const colors = {
   brand: {
